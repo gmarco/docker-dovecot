@@ -10,8 +10,9 @@ WORKDIR /usr/src
 RUN git clone https://github.com/grosjo/fts-xapian.git
 WORKDIR /usr/src/fts-xapian
 # Prepare build system (generate Makefile)
-RUN ./autogen.sh
-RUN ./configure
+RUN autoupdate
+RUN autoreconf -vi
+RUN ./configure --with-dovecot=/usr/lib/dovecot
 RUN make
 RUN make install DESTDIR=/tmp/installroot
 
