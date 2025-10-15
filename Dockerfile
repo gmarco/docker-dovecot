@@ -24,7 +24,7 @@ RUN apk add --no-cache \
      dovecot dovecot-lmtpd dovecot-sqlite dovecot-pigeonhole-plugin dovecot-pigeonhole-plugin-ldap postfix xapian-core icu-libs sqlite-libs
 
 # Copy compiled plugin from builder stage
-COPY --from=builder /tmp/installroot/usr/lib/dovecot/lib21_fts_xapian_plugin.so /usr/lib/dovecot/modules/fts/
+COPY --from=builder /tmp/installroot/usr/lib/dovecot/lib21_fts_xapian_plugin.so /usr/lib/dovecot/
 
 COPY start.sh /start.sh
 
