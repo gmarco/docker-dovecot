@@ -3,7 +3,7 @@ FROM alpine:3.22 AS builder
 
 # Install build dependencies
 RUN apk add --no-cache \
-    git make g++ automake autoconf libtool dovecot-dev xapian-core-dev
+    git make g++ automake autoconf libtool dovecot-dev xapian-core-dev icu-dev
 
 # Build fts_xapian
 WORKDIR /usr/src
@@ -21,7 +21,7 @@ RUN make install DESTDIR=/tmp/installroot
 FROM alpine:3.22
 
 RUN apk add --no-cache \
-     dovecot dovecot-lmtpd dovecot-sqlite dovecot-pigeonhole-plugin dovecot-pigeonhole-plugin-ldap postfix xapian-core
+     dovecot dovecot-lmtpd dovecot-sqlite dovecot-pigeonhole-plugin dovecot-pigeonhole-plugin-ldap postfix xapian-core icu-libs
 
 # Copy compiled plugin from builder stage
 COPY --from=builder /tmp/installroot/usr/lib/dovecot/modules/fts/fts_xapian.so /usr/lib/dovecot/modules/fts/
