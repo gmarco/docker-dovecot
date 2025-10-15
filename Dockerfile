@@ -3,13 +3,17 @@ FROM alpine:3.22 AS builder
 
 # Install build dependencies
 RUN apk add --no-cache \
-    git make g++ dovecot-dev xapian-core-dev
+    git make g++ automake autoconf libtool dovecot-dev xapian-core-dev
 
 # Build fts_xapian
 WORKDIR /usr/src
 RUN git clone https://github.com/grosjo/fts-xapian.git
 WORKDIR /usr/src/fts-xapian
-RUN make && make install DESTDIR=/tmp/installroot
+# Prepare build system (generate Makefile)
+RUN ./autogen.sh
+RUN ./configure
+RUN make
+RUN make install DESTDIR=/tmp/installroot
 
 # ---- STAGE 2: runtime ----
 
