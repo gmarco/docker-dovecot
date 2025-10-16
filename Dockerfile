@@ -21,7 +21,7 @@ RUN make install DESTDIR=/tmp/installroot
 FROM alpine:3.22
 
 RUN apk add --no-cache \
-     dovecot dovecot-lmtpd dovecot-sqlite dovecot-pigeonhole-plugin dovecot-pigeonhole-plugin-ldap postfix xapian-core icu-libs sqlite-libs
+     dovecot dovecot-lmtpd dovecot-sqlite dovecot-pigeonhole-plugin dovecot-pigeonhole-plugin-ldap dovecot-fts-flatcurve postfix xapian-core icu-libs sqlite-libs
 
 # Copy compiled plugin from builder stage
 COPY --from=builder /tmp/installroot/usr/lib/dovecot/lib21_fts_xapian_plugin.so /usr/lib/dovecot/
